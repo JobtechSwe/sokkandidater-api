@@ -12,8 +12,9 @@ from sokkandidater.rest.models import kandidat_lista, sok_kandidat_query, taxono
 class Search(Resource):
     @api.doc(
         params={
-            "offset": "Börja lista resultat från denna position",
-            "limit": "Antal resultat att visa",
+            "offset": "Börja lista resultat från denna position "
+            "(0-%d)" % settings.MAX_OFFSET,
+            "limit": "Antal resultat att visa (0-%d)" % settings.MAX_LIMIT,
             settings.OCCUPATION: "En eller flera yrkesbenämningskoder enligt taxonomi",
             settings.GROUP: "En eller flera yrkesgruppskoder enligt taxonomi",
             settings.FIELD: "En eller flera yrkesområdeskoder enligt taxonomi",

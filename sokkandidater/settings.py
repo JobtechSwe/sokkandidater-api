@@ -22,6 +22,9 @@ MUNICIPALITY = 'kommunkod'
 REGION = 'lanskod'
 WORKTIME_EXTENT = 'arbetstidsomfattning'
 
+MAX_OFFSET = 2000
+MAX_LIMIT = 1000
+
 taxonomy_type = {
     OCCUPATION: 'jobterm',
     GROUP: 'jobgroup',

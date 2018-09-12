@@ -51,8 +51,10 @@ kandidat_lista = api.model('Kandidater', {
 
 # Frågemodeller
 sok_kandidat_query = reqparse.RequestParser()
-sok_kandidat_query.add_argument('offset', type=inputs.int_range(0, 10000), default=0)
-sok_kandidat_query.add_argument('limit', type=inputs.int_range(0, 200), default=10)
+sok_kandidat_query.add_argument('offset', type=inputs.int_range(0, settings.MAX_OFFSET),
+                                default=0)
+sok_kandidat_query.add_argument('limit', type=inputs.int_range(0, settings.MAX_LIMIT),
+                                default=10)
 sok_kandidat_query.add_argument(settings.OCCUPATION, action='append')
 sok_kandidat_query.add_argument(settings.GROUP, action='append')
 sok_kandidat_query.add_argument(settings.FIELD, action='append')
