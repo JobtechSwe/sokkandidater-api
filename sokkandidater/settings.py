@@ -13,6 +13,8 @@ RESTPLUS_MASK_SWAGGER = False
 RESTPLUS_ERROR_404_HELP = False
 
 # Query parameters
+OFFSET = 'offset'
+LIMIT = 'limit'
 OCCUPATION = 'yrke'
 GROUP = 'yrkesgrupp'
 FIELD = 'yrkesomrade'
