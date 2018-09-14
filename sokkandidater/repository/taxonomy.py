@@ -24,7 +24,7 @@ def find_concepts(query_string=None, taxonomy_code=None, entity_type=None, offse
     if query_string:
         musts.append({"term": {"label.autocomplete": query_string}})
     else:
-        offset = 0
+        offset = 0 #TODO parametrise offset ans limit
         limit = 5000
         # No numerical sorting for autocomplete-query
         sort = [
