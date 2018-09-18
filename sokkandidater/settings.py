@@ -15,25 +15,6 @@ RESTPLUS_ERROR_404_HELP = False
 # Query parameters
 OFFSET = 'offset'
 LIMIT = 'limit'
-OCCUPATION = 'yrke'
-GROUP = 'yrkesgrupp'
-FIELD = 'yrkesomrade'
-SKILL = 'kompetens'
-LANGUAGE = 'sprak'
-MUNICIPALITY = 'kommunkod'
-REGION = 'lanskod'
-WORKTIME_EXTENT = 'arbetstidsomfattning'
 
 MAX_OFFSET = 2000
 MAX_LIMIT = 1000
-
-taxonomy_type = {
-    OCCUPATION: 'jobterm',
-    GROUP: 'jobgroup',
-    FIELD: 'jobfield',
-    SKILL: 'skill',
-    LANGUAGE: 'language',
-    MUNICIPALITY: 'municipality_code',
-    REGION: 'region_code',
-    WORKTIME_EXTENT: 'worktime_extent'
-}

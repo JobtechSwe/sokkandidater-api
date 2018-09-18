@@ -1,4 +1,5 @@
 from flask_restplus import fields, reqparse, inputs
+from valuestore import taxonomy
 from sokkandidater.rest import api
 from sokkandidater import settings
 
@@ -55,19 +56,19 @@ sok_kandidat_query.add_argument('offset', type=inputs.int_range(0, settings.MAX_
                                 default=0)
 sok_kandidat_query.add_argument('limit', type=inputs.int_range(0, settings.MAX_LIMIT),
                                 default=10)
-sok_kandidat_query.add_argument(settings.OCCUPATION, action='append')
-sok_kandidat_query.add_argument(settings.GROUP, action='append')
-sok_kandidat_query.add_argument(settings.FIELD, action='append')
-sok_kandidat_query.add_argument(settings.SKILL, action='append')
-sok_kandidat_query.add_argument(settings.LANGUAGE, action='append')
-sok_kandidat_query.add_argument(settings.MUNICIPALITY, action='append')
-sok_kandidat_query.add_argument(settings.REGION, action='append')
-sok_kandidat_query.add_argument(settings.WORKTIME_EXTENT)
+sok_kandidat_query.add_argument(taxonomy.OCCUPATION, action='append')
+sok_kandidat_query.add_argument(taxonomy.GROUP, action='append')
+sok_kandidat_query.add_argument(taxonomy.FIELD, action='append')
+sok_kandidat_query.add_argument(taxonomy.SKILL, action='append')
+sok_kandidat_query.add_argument(taxonomy.LANGUAGE, action='append')
+sok_kandidat_query.add_argument(taxonomy.MUNICIPALITY, action='append')
+sok_kandidat_query.add_argument(taxonomy.REGION, action='append')
+sok_kandidat_query.add_argument(taxonomy.WORKTIME_EXTENT)
 
 taxonomy_query = reqparse.RequestParser()
 taxonomy_query.add_argument('q')
 taxonomy_query.add_argument('kod')
-taxonomy_query.add_argument('typ', choices=(settings.OCCUPATION, settings.GROUP,
-                                            settings.FIELD, settings.SKILL,
-                                            settings.LANGUAGE, settings.MUNICIPALITY,
-                                            settings.REGION, settings.WORKTIME_EXTENT))
+taxonomy_query.add_argument('typ', choices=(taxonomy.OCCUPATION, taxonomy.GROUP,
+                                            taxonomy.FIELD, taxonomy.SKILL,
+                                            taxonomy.LANGUAGE, taxonomy.MUNICIPALITY,
+                                            taxonomy.REGION, taxonomy.WORKTIME_EXTENT))

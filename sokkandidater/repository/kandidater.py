@@ -1,4 +1,5 @@
 import logging
+from valuestore import taxonomy
 from sokkandidater.repository import taxonomy as tr
 from sokkandidater import settings
 from . import elastic
@@ -19,17 +20,17 @@ def _parse_args(args):
     offset = args.get('offset', 0)
     limit = args.get('limit', 10)
 
-    sekundaryrken = _find_secondary_yrkesroller(args.get(settings.GROUP),
-                                                args.get(settings.FIELD))
-    yrke_bool_query = _build_yrkes_query(args.get(settings.OCCUPATION), sekundaryrken)
+    sekundaryrken = _find_secondary_yrkesroller(args.get(taxonomy.GROUP),
+                                                args.get(taxonomy.FIELD))
+    yrke_bool_query = _build_yrkes_query(args.get(taxonomy.OCCUPATION), sekundaryrken)
     kompetens_bool_query = _build_bool_should_query("erfarenhet.kompetens.kod",
-                                                    args.get(settings.SKILL))
-    plats_bool_query = _build_plats_query(args.get(settings.MUNICIPALITY),
-                                          args.get(settings.REGION))
+                                                    args.get(taxonomy.SKILL))
+    plats_bool_query = _build_plats_query(args.get(taxonomy.MUNICIPALITY),
+                                          args.get(taxonomy.REGION))
     sprak_bool_query = _build_bool_should_query("erfarenhet.sprak.kod",
-                                                args.get(settings.LANGUAGE))
+                                                args.get(taxonomy.LANGUAGE))
     worktime_bool_query = _build_worktimeextent_should_query(
-        args.get(settings.WORKTIME_EXTENT))
+        args.get(taxonomy.WORKTIME_EXTENT))
 
     query_dsl = {"query": {"bool": {"must": []}}, "from": offset, "size": limit}
 
