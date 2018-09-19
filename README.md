@@ -3,10 +3,13 @@
 
 ## Installation och körning (rekommenderar starkt att skapa en virtualenv eller anaconda-env innan).
 
+**OBS!** 
+Om du ska utveckla i valuestore-modulen behöver du först checka ut den i sitt eget repo och följa instruktionerna i README.
+
 När du står i projektets rot-katalog:
 
+    $ pip install -r requirements.txt
     $ python setup.py develop
-    $ pip install -e .
     $ export FLASK_APP=sokkandidater
     $ flask run
 
