@@ -4,7 +4,7 @@ from flask_restplus import Resource, abort
 from valuestore import taxonomy
 from valuestore.taxonomy import tax_type
 from sokkandidater import settings
-from sokkandidater.repository import kandidater
+from sokkandidater.repository import kandidater, elastic
 from sokkandidater.rest.models import kandidat_lista, sok_kandidat_query, taxonomy_query
 
 
@@ -61,7 +61,7 @@ class Valuestore(Resource):
         typ = tax_type.get(request.args.get('typ', None), None)
         offset = request.args.get('offset', 0)
         limit = request.args.get('offset', 10)
-        response = taxonomy.find_concepts(q, kod, typ, offset, limit)
+        response = taxonomy.find_concepts(elastic, q, kod, typ, offset, limit)
         if not response:
             abort(500, custom="The server failed to respond properly")
         return taxonomy.format_response(response)
