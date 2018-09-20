@@ -1,6 +1,5 @@
 import logging
 from valuestore import taxonomy
-from sokkandidater.repository import taxonomy as tr
 from sokkandidater import settings
 from . import elastic
 import json
@@ -53,12 +52,14 @@ def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     yrkesgrupper = [] if not yrkesgrupper else yrkesgrupper
     for yrkesomrade in [] if not yrkesomraden else yrkesomraden:
         if yrkesomrade != '':
-            yrkesgrupper += [t['kod'] for t in tr.find_concepts(None, yrkesomrade,
-                                                                'jobgroup')['entiteter']]
+            yrkesgrupper += [t['kod']
+                             for t in taxonomy.find_concepts(None, yrkesomrade,
+                                                             'jobgroup')['entiteter']]
     for yrkesgrupp in yrkesgrupper:
         if yrkesgrupp != '':
-            sekundaryrken = [t['kod'] for t in tr.find_concepts(None, yrkesgrupp,
-                                                                'jobterm')['entiteter']]
+            sekundaryrken = [t['kod']
+                             for t in taxonomy.find_concepts(None, yrkesgrupp,
+                                                             'jobterm')['entiteter']]
 
     return sekundaryrken
 

@@ -1,7 +1,7 @@
 import sys
 import pytest as pytest
 
-from sokkandidater.repository import taxonomy
+from valuestore import taxonomy
 from sokkandidater.repository import kandidater
 from sokkandidater import settings
 
