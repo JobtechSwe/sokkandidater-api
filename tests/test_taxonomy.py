@@ -3,7 +3,8 @@ import pytest
 from elasticsearch.exceptions import RequestError
 import logging as log
 from sokkandidater import settings
-from sokkandidater.repository import taxonomy, elastic
+from sokkandidater.repository import elastic
+from valuestore import taxonomy
 from tests import test_kandidater
 
 
