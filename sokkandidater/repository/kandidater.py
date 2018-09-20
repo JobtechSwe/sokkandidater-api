@@ -1,7 +1,7 @@
 import logging
 from valuestore import taxonomy
 from sokkandidater import settings
-from . import elastic
+from sokkandidater.repository import elastic
 import json
 
 log = logging.getLogger(__name__)

@@ -3,7 +3,6 @@ import pytest as pytest
 
 from valuestore import taxonomy
 from sokkandidater.repository import kandidater
-from sokkandidater import settings
 
 
 def find(key, dictionary): #about yield: https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do
@@ -24,11 +23,13 @@ def find(key, dictionary): #about yield: https://stackoverflow.com/questions/231
 #    print('============================', sys._getframe().f_code.co_name, '============================ ')
 #    print(kandidater._parse_args())
 
-@pytest.mark.parametrize("yrkesgrupper", ( [], [''] ))
-@pytest.mark.parametrize("yrkesomraden", ( [], [''] ))
+@pytest.mark.parametrize("yrkesgrupper", [[], [''],['2144']])
+@pytest.mark.parametrize("yrkesomraden", [[], [''],['18']] )
 def test_find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     print('============================', sys._getframe().f_code.co_name, '============================ ')
     d = kandidater._find_secondary_yrkesroller(yrkesgrupper, yrkesomraden)
+    print(yrkesgrupper)
+    print(yrkesomraden)
     print(d)
     if (yrkesgrupper == [] or yrkesgrupper == [''] ) and (yrkesomraden == [] or yrkesomraden == ['']) :
         assert d == []
@@ -36,10 +37,12 @@ def test_find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
 @pytest.fixture()
 def sek(yrkesgrupper, yrkesomraden): return kandidater._find_secondary_yrkesroller(yrkesgrupper, yrkesomraden)
 # def sekundaryrken(request): return request.param
-@pytest.mark.parametrize("yrkesroller", ( [], [''],["yrke1"], ["yrke1", "yrke2"], ["yrke3", ''] ))
-@pytest.mark.parametrize("sekundaryrken", ( sek([], ['']) , sek([''],[''] ) , ["sek_y1", "sek_y2" ] , ["sel_y2"], ["sek_y3", ''] ))
+@pytest.mark.parametrize("yrkesroller", ( [], [''],["115"] ))
+@pytest.mark.parametrize("sekundaryrken", ( sek([], ['']) , sek([''],[''] ) , sek(['2144'], ['18']) ))
 def test_build_yrkes_query(yrkesroller, sekundaryrken ):
     print('============================',sys._getframe().f_code.co_name,'============================ ')
+    print(yrkesroller)
+    print(sekundaryrken)
     d = kandidater._build_yrkes_query(yrkesroller, sekundaryrken)
     print(d)
     if d == None:
