@@ -53,13 +53,15 @@ def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     for yrkesomrade in [] if not yrkesomraden else yrkesomraden:
         if yrkesomrade != '':
             yrkesgrupper += [t['kod']
-                             for t in taxonomy.find_concepts(None, yrkesomrade,
-                                                             'jobgroup')['entiteter']]
+                             for t in
+                             taxonomy.find_concepts(elastic, None, yrkesomrade,
+                                                    'jobgroup').get('entiteter', [])]
     for yrkesgrupp in yrkesgrupper:
         if yrkesgrupp != '':
             sekundaryrken = [t['kod']
-                             for t in taxonomy.find_concepts(None, yrkesgrupp,
-                                                             'jobterm')['entiteter']]
+                             for t in
+                             taxonomy.find_concepts(elastic, None, yrkesgrupp,
+                                                    'jobterm').get('entiteter', [])]
 
     return sekundaryrken
 

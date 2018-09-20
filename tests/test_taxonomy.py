@@ -54,7 +54,7 @@ def find_concepts(query_string=None, taxonomy_code=None, entity_type=None, offse
 @pytest.mark.parametrize("offset, limit", [ [0,10], [0,1] ])
 def test_find_concepts(query_string, taxonomy_code, entity_type, offset, limit):
     print('============================', sys._getframe().f_code.co_name, '============================ ')
-    d = taxonomy.find_concepts(query_string, taxonomy_code, entity_type, offset, limit) #use of find_concept with return query_dsl
+    d = taxonomy.find_concepts(elastic, query_string, taxonomy_code, entity_type, offset, limit) #use of find_concept with return query_dsl
     print(d)
     print(query_string, taxonomy_code, entity_type, offset, limit)
     if not query_string: # query_string == None,[]
