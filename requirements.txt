@@ -3,3 +3,5 @@ flask
 flask-restplus
 flask-cors
 git+https://github.com/JobtechSwe/valuestore-module.git
+pytest
+pytest-runner
