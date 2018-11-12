@@ -22,6 +22,7 @@ resultat_taxonomi = api.model('TaxonomiEntitet', {
 
 matchande_kandidat = api.model('MatchandeKandidat', {
     'arbetssokandeprofilId': fields.String(attribute='_source.id'),
+    'anvandarId': fields.String(attribute='_source.anvandarid'),
     'rubrik': fields.String(attribute='_source.rubrik'),
     'senastModifierad': fields.String(attribute='_source.timestamp'),
     'efterfragadArbetsplats': fields.Nested({
@@ -64,6 +65,8 @@ sok_kandidat_query.add_argument(taxonomy.LANGUAGE, action='append')
 sok_kandidat_query.add_argument(taxonomy.MUNICIPALITY, action='append')
 sok_kandidat_query.add_argument(taxonomy.REGION, action='append')
 sok_kandidat_query.add_argument(taxonomy.WORKTIME_EXTENT)
+sok_kandidat_query.add_argument(settings.RESULT_MODEL, choices=['kandidarer',
+                                                                'elastic'])
 
 taxonomy_query = reqparse.RequestParser()
 taxonomy_query.add_argument('q')

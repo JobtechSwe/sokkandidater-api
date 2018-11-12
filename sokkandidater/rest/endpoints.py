@@ -23,6 +23,7 @@ class Search(Resource):
             taxonomy.MUNICIPALITY: "En eller flera kommunkoder",
             taxonomy.REGION: "En eller flera länskoder",
             taxonomy.WORKTIME_EXTENT: "Arbetstidsomfattningskod enligt taxonomi",
+            settings.RESULT_MODEL: "Resultatmodell"
         },
         responses={
             200: 'OK',
@@ -33,11 +34,16 @@ class Search(Resource):
     def get(self):
         args = sok_kandidat_query.parse_args()
         result = kandidater.find_candidates(args)
+        if args.get(settings.RESULT_MODEL) == 'elastic':
+            return self.marshal_elastic_result(result)
         return self.marshal_kandidater(result)
 
     # Prepare to be able to marshal with different result models
     @api.marshal_with(kandidat_lista)
     def marshal_kandidater(self, result):
+        return result
+
+    def marshal_elastic_result(self, result):
         return result
 
 

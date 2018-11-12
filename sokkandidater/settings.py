@@ -15,6 +15,8 @@ RESTPLUS_ERROR_404_HELP = False
 # Query parameters
 OFFSET = 'offset'
 LIMIT = 'limit'
+RESULT_MODEL = 'resultmodel'
+
 
 MAX_OFFSET = 2000
 MAX_LIMIT = 1000
