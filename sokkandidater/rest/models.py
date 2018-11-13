@@ -23,6 +23,7 @@ resultat_taxonomi = api.model('TaxonomiEntitet', {
 matchande_kandidat = api.model('MatchandeKandidat', {
     'arbetssokandeprofilId': fields.String(attribute='_source.id'),
     'anvandarId': fields.String(attribute='_source.anvandarid'),
+    'referensId': fields.String(attribute='_source.referensid'),
     'rubrik': fields.String(attribute='_source.rubrik'),
     'senastModifierad': fields.String(attribute='_source.timestamp'),
     'efterfragadArbetsplats': fields.Nested({
