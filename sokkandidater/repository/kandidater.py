@@ -69,12 +69,14 @@ def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
 def _build_yrkes_query(yrkesroller, sekundaryrken):
     yrken = [] if not yrkesroller else yrkesroller
 
-    yt_query = [{"term": {"krav.yrke.kod": {"value": y, "boost": 2.0}}} for y in yrken]
-    yt_query += [{"term": {"erfarenhet.yrke.kod": {"value": y}}} for y in yrken]
+    yt_query = [{"term":
+                 {"krav.yrkesroll.kod": {
+                     "value": y, "boost": 2.0}}} for y in yrken]
+    yt_query += [{"term": {"erfarenhet.yrkesroll.kod": {"value": y}}} for y in yrken]
 
-    syt_query = [{"term": {"krav.yrke.kod": {
+    syt_query = [{"term": {"krav.yrkesroll.kod": {
         "value": y, "boost": 1.0}}} for y in sekundaryrken]
-    syt_query += [{"term": {"erfarenhet.yrke.kod": y}} for y in sekundaryrken]
+    syt_query += [{"term": {"erfarenhet.yrkesroll.kod": y}} for y in sekundaryrken]
 
     primary_choice = {"bool": {"should": yt_query,
                                "boost": 2.0}} if yt_query else None
