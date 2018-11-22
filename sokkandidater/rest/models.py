@@ -21,33 +21,36 @@ resultat_taxonomi = api.model('TaxonomiEntitet', {
 })
 
 matchande_kandidat = api.model('MatchandeKandidat', {
-    'arbetssokandeprofilId': fields.String(attribute='_source.id'),
+    'arbetssokandeprofilId': fields.String(attribute='_source.referensid'),
     'anvandarId': fields.String(attribute='_source.anvandarid'),
-    'referensId': fields.String(attribute='_source.referensid'),
-    'rubrik': fields.String(attribute='_source.rubrik'),
+    'namn': fields.String(attribute='_source.namn'),
+    'score': fields.Float(attribute='_score'),
     'senastModifierad': fields.String(attribute='_source.timestamp'),
-    'efterfragadArbetsplats': fields.Nested({
-        'land': fields.List(fields.Nested(resultat_plats), attribute='krav.land'),
-        'lan': fields.List(fields.Nested(resultat_plats), attribute='krav.lan'),
-        'kommun': fields.List(fields.Nested(resultat_plats), attribute='krav.kommun'),
-        'geoPosition': fields.List(fields.Nested(resultat_geoposition),
-                                   attribute='krav.geoPosition')
-    }, attribute='_source', skip_none=True),
-    'matchningsresultatKandidat': fields.Nested({
-        'efterfragade': fields.Nested({
-            'yrke': fields.List(fields.Nested(resultat_taxonomi)),
-            'anstallningstyp': fields.List(fields.Nested(resultat_taxonomi)),
-            'efterfragade': fields.List(fields.Nested(resultat_taxonomi)),
-        }, attribute='krav', skip_none=True),
-        'erbjudande': fields.Nested({
-            'yrke': fields.List(fields.Nested(resultat_taxonomi)),
-            'kompetens': fields.List(fields.Nested(resultat_taxonomi))
-        }, attribute='erfarenhet', skip_none=True)
-    }, attribute='_source')
+    'kommun': fields.List(fields.Nested(resultat_taxonomi),
+                          attribute='_source.krav.kommun'),
+    'lan': fields.List(fields.Nested(resultat_taxonomi), attribute='_source.krav.lan'),
+    'land': fields.List(fields.Nested(resultat_taxonomi), attribute='_source.krav.land'),
+    'yrkesroller': fields.List(fields.Nested(resultat_taxonomi),
+                               attribute='_source.krav.yrkesroll'),
+    'kompetenser': fields.List(fields.Nested(resultat_taxonomi),
+                               attribute='_source.erfarenhet.kompetens'),
+    'erfarenheter': fields.List(fields.Nested(resultat_taxonomi),
+                                attribute='_source.erfarenhet.yrkesroll'),
+    'sprak': fields.List(fields.Nested(resultat_taxonomi),
+                         attribute='_source.erfarenhet.sprak'),
+    'korkort': fields.List(fields.Nested(resultat_taxonomi),
+                           attribute='_source.erfarenhet.korkort'),
+    'utbildningsinriktning': fields.List(
+        fields.Nested(resultat_taxonomi),
+        attribute='_source.erfarenhet.utbildningsinriktning'),
+    'bostadsplats': fields.List(
+        fields.Nested(resultat_taxonomi),
+        attribute='_source.erfarenhet.bostadsplats')
 })
 
 kandidat_lista = api.model('Kandidater', {
     'antal': fields.Integer(attribute='total'),
+    'totalScore': fields.Float(attribute='max_score'),
     'kandidater': fields.List(fields.Nested(matchande_kandidat), attribute='hits')
 })
 
