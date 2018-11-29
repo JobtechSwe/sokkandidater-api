@@ -20,6 +20,12 @@ resultat_taxonomi = api.model('TaxonomiEntitet', {
     'term': fields.String()
 })
 
+resultat_taxonomi_niva = api.model('TaxonomiEntitetWithLevel', {
+    'kod': fields.String(),
+    'term': fields.String(),
+    'niva': fields.String()
+})
+
 matchande_kandidat = api.model('MatchandeKandidat', {
     'arbetssokandeprofilId': fields.String(attribute='_source.referensid'),
     'anvandarId': fields.String(attribute='_source.anvandarid'),
@@ -34,14 +40,14 @@ matchande_kandidat = api.model('MatchandeKandidat', {
                                attribute='_source.krav.yrkesroll'),
     'kompetenser': fields.List(fields.Nested(resultat_taxonomi),
                                attribute='_source.erfarenhet.kompetens'),
-    'erfarenheter': fields.List(fields.Nested(resultat_taxonomi),
+    'erfarenheter': fields.List(fields.Nested(resultat_taxonomi_niva),
                                 attribute='_source.erfarenhet.yrkesroll'),
-    'sprak': fields.List(fields.Nested(resultat_taxonomi),
+    'sprak': fields.List(fields.Nested(resultat_taxonomi_niva),
                          attribute='_source.erfarenhet.sprak'),
     'korkort': fields.List(fields.Nested(resultat_taxonomi),
                            attribute='_source.erfarenhet.korkort'),
     'utbildningsinriktning': fields.List(
-        fields.Nested(resultat_taxonomi),
+        fields.Nested(resultat_taxonomi_niva),
         attribute='_source.erfarenhet.utbildningsinriktning'),
     'bostadsplats': fields.List(
         fields.Nested(resultat_taxonomi),
