@@ -16,6 +16,7 @@ RESTPLUS_ERROR_404_HELP = False
 OFFSET = 'offset'
 LIMIT = 'limit'
 RESULT_MODEL = 'resultmodel'
+EXPERIENCE = 'workexperience'
 
 
 MAX_OFFSET = 2000

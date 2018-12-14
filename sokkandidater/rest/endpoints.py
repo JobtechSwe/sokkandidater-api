@@ -18,6 +18,8 @@ class Search(Resource):
             taxonomy.OCCUPATION: "En eller flera yrkesbenämningskoder enligt taxonomi",
             taxonomy.GROUP: "En eller flera yrkesgruppskoder enligt taxonomi",
             taxonomy.FIELD: "En eller flera yrkesområdeskoder enligt taxonomi",
+            settings.EXPERIENCE: "Visa kandidater med erfarenhet av angivna yrken "
+            "(yes/no)",
             taxonomy.SKILL: "En eller flera kompetenskoder enligt taxonomi",
             taxonomy.LANGUAGE: "En eller flera språkkoder enligt taxonomi",
             taxonomy.MUNICIPALITY: "En eller flera kommunkoder",

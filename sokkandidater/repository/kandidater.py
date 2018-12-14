@@ -44,25 +44,37 @@ def _parse_args(args):
     if worktime_bool_query:
         query_dsl['query']['bool']['must'].append(worktime_bool_query)
 
+    if args.get(settings.EXPERIENCE) == 'no' and yrke_bool_query:
+        no_exp = sekundaryrken
+        if args.get(taxonomy.OCCUPATION):
+            no_exp += args.get(taxonomy.OCCUPATION)
+        query_dsl['query']['bool']['must_not'] = \
+            {"terms": {"erfarenhet.yrkesroll.kod": no_exp}}
+
     return query_dsl
 
 
 def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     sekundaryrken = []
-    yrkesgrupper = [] if not yrkesgrupper else yrkesgrupper
-    for yrkesomrade in [] if not yrkesomraden else yrkesomraden:
-        if yrkesomrade != '':
-            yrkesgrupper += [t['kod']
-                             for t in
-                             taxonomy.find_concepts(elastic, None, yrkesomrade,
-                                                    'jobgroup').get('entiteter', [])]
-    for yrkesgrupp in yrkesgrupper:
-        if yrkesgrupp != '':
-            sekundaryrken = [t['kod']
-                             for t in
-                             taxonomy.find_concepts(elastic, None, yrkesgrupp,
-                                                    'jobterm').get('entiteter', [])]
+    yrkesgrupper = yrkesgrupper or []
+    yrkesomraden = yrkesomraden or []
+    if yrkesomraden:
+        yrkesgrupper += [t['_source']['legacy_ams_taxonomy_id']
+                         for t in
+                         taxonomy.find_concepts(elastic, None, yrkesomraden,
+                                                'jobgroup')
+                         .get('hits', {})
+                         .get('hits', [])]
+    log.info("yrkesgrupper: %s" % yrkesgrupper)
+    if yrkesgrupper:
+        sekundaryrken = [t['_source']['legacy_ams_taxonomy_id']
+                         for t in
+                         taxonomy.find_concepts(elastic, None, yrkesgrupper,
+                                                'jobterm')
+                         .get('hits', {})
+                         .get('hits', [])]
 
+    log.info("sekundaryrken: %s" % sekundaryrken)
     return sekundaryrken
 
 

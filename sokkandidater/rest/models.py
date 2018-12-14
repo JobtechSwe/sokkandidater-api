@@ -70,6 +70,7 @@ sok_kandidat_query.add_argument('limit', type=inputs.int_range(0, settings.MAX_L
 sok_kandidat_query.add_argument(taxonomy.OCCUPATION, action='append')
 sok_kandidat_query.add_argument(taxonomy.GROUP, action='append')
 sok_kandidat_query.add_argument(taxonomy.FIELD, action='append')
+sok_kandidat_query.add_argument(settings.EXPERIENCE, choices=['yes', 'no'])
 sok_kandidat_query.add_argument(taxonomy.SKILL, action='append')
 sok_kandidat_query.add_argument(taxonomy.LANGUAGE, action='append')
 sok_kandidat_query.add_argument(taxonomy.MUNICIPALITY, action='append')
