@@ -15,6 +15,7 @@ class Search(Resource):
             settings.OFFSET: "Börja lista resultat från denna position "
             "(0-%d)" % settings.MAX_OFFSET,
             settings.LIMIT: "Antal resultat att visa (0-%d)" % settings.MAX_LIMIT,
+            settings.SORT: "Sortering (relevans/uppdateringsdatum)",
             taxonomy.OCCUPATION: "En eller flera yrkesbenämningskoder enligt taxonomi",
             taxonomy.GROUP: "En eller flera yrkesgruppskoder enligt taxonomi",
             taxonomy.FIELD: "En eller flera yrkesområdeskoder enligt taxonomi",

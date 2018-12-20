@@ -67,6 +67,7 @@ sok_kandidat_query.add_argument('offset', type=inputs.int_range(0, settings.MAX_
                                 default=0)
 sok_kandidat_query.add_argument('limit', type=inputs.int_range(0, settings.MAX_LIMIT),
                                 default=10)
+sok_kandidat_query.add_argument(settings.SORT, choices=list(settings.sort_options.keys()))
 sok_kandidat_query.add_argument(taxonomy.OCCUPATION, action='append')
 sok_kandidat_query.add_argument(taxonomy.GROUP, action='append')
 sok_kandidat_query.add_argument(taxonomy.FIELD, action='append')

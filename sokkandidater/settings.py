@@ -15,9 +15,15 @@ RESTPLUS_ERROR_404_HELP = False
 # Query parameters
 OFFSET = 'offset'
 LIMIT = 'limit'
+SORT = 'sort'
 RESULT_MODEL = 'resultmodel'
 EXPERIENCE = 'workexperience'
 
 
 MAX_OFFSET = 2000
 MAX_LIMIT = 1000
+
+sort_options = {
+    'relevance': "_score",
+    'update': {"timestamp": "desc"},
+}

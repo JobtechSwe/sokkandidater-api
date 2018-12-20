@@ -51,6 +51,8 @@ def _parse_args(args):
         query_dsl['query']['bool']['must_not'] = \
             {"terms": {"erfarenhet.yrkesroll.kod": no_exp}}
 
+    if args.get(settings.SORT):
+        query_dsl['sort'] = [settings.sort_options.get(args.pop(settings.SORT))]
     return query_dsl
 
 
@@ -61,20 +63,18 @@ def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     if yrkesomraden:
         yrkesgrupper += [t['_source']['legacy_ams_taxonomy_id']
                          for t in
-                         taxonomy.find_concepts(elastic, None, yrkesomraden,
-                                                'jobgroup')
+                         taxonomy.find_concepts(elastic, None, yrkesomraden, 'jobgroup')
                          .get('hits', {})
                          .get('hits', [])]
     log.info("yrkesgrupper: %s" % yrkesgrupper)
     if yrkesgrupper:
         sekundaryrken = [t['_source']['legacy_ams_taxonomy_id']
                          for t in
-                         taxonomy.find_concepts(elastic, None, yrkesgrupper,
-                                                'jobterm')
+                         taxonomy.find_concepts(elastic, None, yrkesgrupper, 'jobterm')
                          .get('hits', {})
                          .get('hits', [])]
 
-    log.info("sekundaryrken: %s" % sekundaryrken)
+    log.debug("sekundaryrken: %s" % sekundaryrken)
     return sekundaryrken
 
 
