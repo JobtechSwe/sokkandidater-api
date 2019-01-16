@@ -1,5 +1,6 @@
 import logging
 from valuestore import taxonomy
+from valuestore.taxonomy import JobtechTaxonomy as jt
 from sokkandidater import settings
 from sokkandidater.repository import elastic
 import json
@@ -63,14 +64,16 @@ def _find_secondary_yrkesroller(yrkesgrupper, yrkesomraden):
     if yrkesomraden:
         yrkesgrupper += [t['_source']['legacy_ams_taxonomy_id']
                          for t in
-                         taxonomy.find_concepts(elastic, None, yrkesomraden, 'jobgroup')
+                         taxonomy.find_concepts(elastic, None,
+                                                yrkesomraden, jt.OCCUPATION_GROUP)
                          .get('hits', {})
                          .get('hits', [])]
     log.info("yrkesgrupper: %s" % yrkesgrupper)
     if yrkesgrupper:
         sekundaryrken = [t['_source']['legacy_ams_taxonomy_id']
                          for t in
-                         taxonomy.find_concepts(elastic, None, yrkesgrupper, 'jobterm')
+                         taxonomy.find_concepts(elastic, None,
+                                                yrkesgrupper, jt.OCCUPATION_NAME)
                          .get('hits', {})
                          .get('hits', [])]
 
