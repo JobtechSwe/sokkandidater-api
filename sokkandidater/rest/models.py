@@ -83,7 +83,8 @@ sok_kandidat_query.add_argument(settings.RESULT_MODEL, choices=['kandidarer',
 taxonomy_query = reqparse.RequestParser()
 taxonomy_query.add_argument('q')
 taxonomy_query.add_argument('kod', action='append')
-taxonomy_query.add_argument('typ', choices=(taxonomy.OCCUPATION, taxonomy.GROUP,
-                                            taxonomy.FIELD, taxonomy.SKILL,
-                                            taxonomy.LANGUAGE, taxonomy.MUNICIPALITY,
-                                            taxonomy.REGION, taxonomy.WORKTIME_EXTENT))
+taxonomy_query.add_argument('typ', choices=list(taxonomy.tax_type.keys()))
+# taxonomy_query.add_argument('typ', choices=(taxonomy.OCCUPATION, taxonomy.GROUP,
+#                                             taxonomy.FIELD, taxonomy.SKILL,
+#                                             taxonomy.LANGUAGE, taxonomy.MUNICIPALITY,
+#                                             taxonomy.REGION, taxonomy.WORKTIME_EXTENT))
